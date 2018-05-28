@@ -104,6 +104,9 @@ function refreshList(data) {
 }
 
 $(document).ready(function() {
+    $(".btn-start-workout").bind("click", function() {
+        window.location = "workout.html";
+    });
     refreshList(gDummyData);
 });
 </script>
