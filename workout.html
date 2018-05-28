@@ -58,7 +58,7 @@ body {
 .set-chart .repeat-box .repeat-bar {
     background-color: orange;
     margin-left: 15px;
-    opacity: 0.7;
+    opacity: 0.5;
     width: 30px;
 }
 .set-chart .repeat {
@@ -81,7 +81,6 @@ body {
     overflow: hidden;
 }
 .workout .set > div {
-    margin-right: 10px;
     text-align: center;
 }
 .workout .set > div.remove {
@@ -206,6 +205,43 @@ body {
     </div>
 </div>
 -->
+<style>
+.new-exercise {
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 8px;
+    width: 100%;
+}
+.new-exercise .input-name {
+    background-color: black;
+    border: none;
+    border-bottom: 2px orange solid;
+    color: white;
+    float: left;
+    font-size: 24px;
+    height: 40px;
+    outline: none;
+    width: 76%;
+}
+.btn-start {
+    background-color: orange;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: black;
+    float: right;
+    height: 36px;
+    font-size: 20px;
+    margin: 10px auto;
+    padding: 2px 0px 0px 0px;
+    text-align: center;
+    width: 20%;
+}
+</style>
+
+<div class="new-exercise">
+    <input class="input-name" type="text" placeholder="Exercise Name"></input>
+    <div class="btn-start">Start</div>
+</div>
 
 </body>
 
@@ -288,7 +324,8 @@ function renderWorkoutWithChart(data) {
     renderChart(chart, data.setData, "kg");
     wo.append(chart);
 
-    $("body").append(wo);
+    var pElem = $(".workout").length > 0 ? $(".workout") : $(".nav");
+    pElem.after(wo);
 }
 
 function refreshWorkouts(data) {
@@ -317,6 +354,7 @@ function initDigitButtons() {
         }
     });
 }
+
 $(document).ready(function() {
     refreshWorkouts(gDummyData);
     //initDigitButtons();
