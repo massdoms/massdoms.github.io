@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+
+<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+<style>
+
+body {
+    background-color: black; color: white; margin: 0; padding: 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+}
+.nav {
+    background-color: orange;
+    box-sizing: border-box;
+    color: black;
+    height: 40px;
+    padding: 4px 8px 8px 8px;
+    width: 100%;
+}
+.nav .logo {
+    float: left;
+}
+.set-chart {
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 8px;
+    width: 100%;
+}
+.set-chart .set {
+    float: left;
+    font-size: 28px;
+    text-align: center;
+    width: 60px;
+}
+.set-chart .kg {
+    height: 40px;
+    font-size: 20px;
+}
+.set-chart .kg-box {
+    border-bottom: 2px white solid;
+    overflow: hidden;
+    width: 60px;
+}
+.set-chart .kg-box .kg-bar {
+    background-color: orange;
+    margin-left: 15px;
+    width: 30px;
+}
+.set-chart .repeat-box {
+    overflow: hidden;
+    width: 60px;
+}
+.set-chart .repeat-box .repeat-bar {
+    background-color: orange;
+    margin-left: 15px;
+    opacity: 0.7;
+    width: 30px;
+}
+.set-chart .repeat {
+    height: 40px;
+    font-size: 20px;
+    margin-top: 8px;
+}
+.workout {
+    box-sizing: border-box;
+    padding: 0 8px;
+}
+.workout .name {
+    color: orange;
+}
+.workout .set-area {
+    overflow: hidden;
+}
+.workout .set {
+    float: left;
+    overflow: hidden;
+}
+.workout .set > div {
+    margin-right: 10px;
+    text-align: center;
+}
+.workout .set > div.remove {
+    margin-bottom: 0px;
+    color: orange;
+}
+.button-area {
+    box-sizing: border-box;
+    padding: 8px;
+}
+.digit-area {
+    float: left;
+    overflow: hidden;
+    width: 60%;
+}
+.digit-area > div {
+    border: 1px orange solid;
+    border-radius: 24px;
+    color: orange;
+    float: left;
+    height: 40px;
+    margin: 0px 4px 4px 0px;
+    text-align: center;
+    width: calc(20% - 6px);
+}
+.digit-area > div:hover {
+    background-color: orange;
+    color: black;
+}
+.input-display {
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 8px;
+    width: 100%;
+}
+.input-display .kg {
+    border-bottom: 2px orange solid;
+    float: left;
+    margin: 0 10px;
+    text-align: center;
+    width: 20%;
+}
+.input-display .repeat {
+    border-bottom: 2px orange dotted;
+    float: left;
+    margin-right: 20px;
+    text-align: center;
+    width: 20%;
+}
+.input-display .add-or-update {
+    background-color: orange;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: black;
+    float: right;
+    font-size: 20px;
+    height: 40px;
+    margin-right: 8px;
+    padding: 4px;
+    text-align: center;
+    width: calc(20% + 2px);
+}
+.input-display .done {
+    background-color: orange;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: black;
+    float: right;
+    font-size: 20px;
+    height: 40px;
+    padding: 4px;
+    text-align: center;
+    width: calc(20% + 2px);
+}
+</style>
+
+<body>
+
+<div class="nav">
+    <div class="logo">2018.05.26 10:23</div>
+</div>
+
+<!--
+<div class="workout">
+    <div class="name">Lat Pull Down &nbsp;&nbsp;&nbsp;[edit]</div>
+    <div class="set-area">
+        <div class="set">
+            <div class="remove">x</div>
+            <div class="weight">37kg</div><div class="repeat">20</div>
+        </div>
+        <div class="set">
+            <div class="remove">x</div>
+            <div class="weight">43kg</div><div class="repeat">20</div>
+        </div>
+        <div class="set">
+            <div class="remove">x</div>
+            <div class="weight">143kg</div><div class="repeat">20</div>
+        </div>
+        <div class="set">
+            <div class="remove">x</div>
+            <div class="weight">43kg(PR)</div><div class="repeat">20</div>
+        </div>
+        <div class="set">
+            <div class="remove">x</div>
+            <div class="weight">43kg</div><div class="repeat">20</div>
+        </div>
+    </div>
+</div>
+
+<div class="input-display">
+    <div class="kg">0 kg</div>
+    <div class="repeat">0 times</div>
+    <div class="done">Done</div>
+    <div class="add-or-update">Add</div>
+</div>
+
+<div class="button-area">
+    <div class="digit-area">
+        <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div>
+        <div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+        <div>x</div>
+    </div>
+</div>
+-->
+
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script>
+
+var gDummyData = [
+    {
+        workoutName: "Dumbell Bent Over Raise",
+        setData: [ [37, 20], [43, 20], [43, 20], [43, 20], [43, 20] ]
+    },
+    {
+        workoutName: "Dumbell Lateral Raise",
+        setData: [ [37, 20], [43, 20], [43, 20], [43, 20], [43, 20] ]
+    }
+];
+
+function renderChart(pElem, data, unit) {
+
+    var barMax = 30; // px
+    var maxWeight = 0;
+    var maxRepeat = 0;
+
+    for (var i = 0; i < data.length; ++i) {
+        if (data[i][0] > maxWeight) {
+            maxWeight = data[i][0];
+        }
+        if (data[i][1] > maxRepeat) {
+            maxRepeat = data[i][1];
+        }
+    }
+
+    for (var i = 0; i < data.length; ++i) {
+        var w = data[i][0];
+        var r = data[i][1];
+        var barHeight = 0;
+        if (maxWeight > 0) {
+            // x = weight * barMax / maxWeight
+            barHeight = parseInt(w * barMax / maxWeight);
+        }
+        var set = $("<div>").addClass("set");
+
+        var kg = $("<div>").addClass("kg").text(w + "kg");
+        kg.css("margin-top", (barMax - barHeight) + "px");
+        set.append(kg);
+
+        var kgBox = $("<div>").addClass("kg-box");
+        var kgBar = $("<div>").addClass("kg-bar").css(
+            "height", barHeight + "px"
+        );
+        kgBox.append(kgBar);
+        set.append(kgBox);
+
+        barHeight = 0;
+        if (maxRepeat > 0) {
+            barHeight = parseInt(r * barMax / maxRepeat);
+        }
+
+        var repeatBox = $("<div>").addClass("repeat-box");
+        var repeatBar = $("<div>").addClass("repeat-bar").css(
+            "height", barHeight + "px"
+        );
+        repeatBox.append(repeatBar);
+        set.append(repeatBox);
+
+        var repeat = $("<div>").addClass("repeat").text(r);
+        repeat.css("margin-bottom", (barMax - barHeight) + "px");
+        set.append(repeat);
+
+        pElem.append(set);
+    }
+}
+
+function renderWorkoutWithChart(data) {
+    var wo = $("<div>").addClass("workout");
+
+    wo.append($("<div>").addClass("name").text(data.workoutName));
+
+    var chart = $("<div>").addClass("set-chart");
+    renderChart(chart, data.setData, "kg");
+    wo.append(chart);
+
+    $("body").append(wo);
+}
+
+function refreshWorkouts(data) {
+    for (var i = 0; i < data.length; ++i) {
+        renderWorkoutWithChart(data[i]);
+    }
+}
+
+function isKgOn() {
+    return true;
+}
+
+function initDigitButtons() {
+    $(".button-area .digit-area > div").bind("click", function() {
+        var value = $(this).text();
+        if (isKgOn()) {
+            var kgElem = $(".input-display .kg");
+            var curr = parseInt(kgElem.text());
+            if (value == "x") {
+                kgElem.text("0 kg");
+            }
+            else {
+                var newValue = curr == 0 ? value + " kg": curr + value + " kg";
+                kgElem.text(newValue);
+            }
+        }
+    });
+}
+$(document).ready(function() {
+    refreshWorkouts(gDummyData);
+    //initDigitButtons();
+});
+</script>
+
+</html>
