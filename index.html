@@ -2,6 +2,135 @@
 
 <html>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/%28%EB%B6%80%EC%82%B0%ED%96%89%29_%EC%B9%B8_%EA%B5%AD%EC%A0%9C_%EC%98%81%ED%99%94%EC%A0%9C_%EC%B4%88%EC%B2%AD_%EB%B0%B0%EC%9A%B0_%EA%B0%90%EC%82%AC%EC%9D%B8%EC%82%AC_%EC%98%81%EC%83%81_%EB%A7%88%EB%8F%99%EC%84%9D.jpg/280px-%28%EB%B6%80%EC%82%B0%ED%96%89%29_%EC%B9%B8_%EA%B5%AD%EC%A0%9C_%EC%98%81%ED%99%94%EC%A0%9C_%EC%B4%88%EC%B2%AD_%EB%B0%B0%EC%9A%B0_%EA%B0%90%EC%82%AC%EC%9D%B8%EC%82%AC_%EC%98%81%EC%83%81_%EB%A7%88%EB%8F%99%EC%84%9D.jpg" />
-Let's do it!
+<head>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+</head>
+
+<style>
+body {
+    background-color: black; color: white; margin: 0; padding: 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+}
+.nav {
+    background-color: orange;
+    box-sizing: border-box;
+    color: black;
+    height: 40px;
+    padding: 4px 8px 8px 8px;
+    width: 100%;
+}
+.nav .logo {
+    float: left;
+}
+.btn-start-workout {
+    background-color: orange;
+    box-sizing: border-box;
+    border-radius: 20px;
+    color: black;
+    font-size: 24px;
+    margin: 20px auto;
+    padding: 8px;
+    text-align: center;
+    width: 50%;
+}
+</style>
+
+<body>
+
+<div class="nav">
+    <div class="logo">MassDoms</div>
+</div>
+
+<div class="btn-start-workout">Start Workout</div>
+
+<style>
+.workout .title {
+    background-color: orange;
+    box-sizing: border-box;
+    color: black;
+    margin-top: 10px;
+    opacity: 0.7;
+    padding-left: 10px;
+    width: 100%;
+}
+.workout .item {
+    overflow: hidden;
+}
+.workout .item div {
+    float: left;
+}
+.workout .item .set {
+    margin: 0 10px;
+    text-align: left;
+    width: 30px;
+}
+</style>
+<div class="workout"></div>
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script>
+
+var gDummyData = [
+    {
+        title: "2018.05.26",
+        workout: [
+            { setCount: 5, workoutName: "Lat Pull Down" },
+            { setCount: 5, workoutName: "Dumbell Front Raise" },
+            { setCount: 3, workoutName: "Roman Chair Back Extension" },
+            { setCount: 5, workoutName: "Power Leg Press" },
+        ]
+    },
+    {
+        title: "2018.05.24",
+        workout: [
+            { setCount: 5, workoutName: "Machine Chest Press" },
+            { setCount: 5, workoutName: "Seated Mid Row" },
+            { setCount: 3, workoutName: "Deadlift" },
+            { setCount: 5, workoutName: "Walking Lunge" },
+        ]
+    }
+];
+
+function renderWorkout(data) {
+
+    var workout = $("<div>").addClass("workout");
+
+    // Append title.
+    workout.append($("<div>").addClass("title").text(data.title));
+
+    // Append items.
+    for (var i = 0; i < data.workout.length; ++i) {
+
+        var count = data.workout[i].setCount;
+        var workoutName = data.workout[i].workoutName;
+
+        var item = $("<div>").addClass("item");
+
+        item.append($("<div>").addClass("set").text(count));
+        item.append($("<div>").addClass("name").text(workoutName));
+
+        workout.append(item);
+    }
+
+    return workout;
+}
+
+function refreshList(data) {
+
+    var pElem = $("body");
+
+    for (var i = 0; i < data.length; ++i) {
+        var workout = renderWorkout(data[i]);
+        pElem.append(workout);
+    }
+}
+
+$(document).ready(function() {
+    refreshList(gDummyData);
+});
+</script>
+
 </html>
