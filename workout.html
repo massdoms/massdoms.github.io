@@ -117,11 +117,14 @@ body {
     width: 100%;
 }
 .input-display .kg {
-    border-bottom: 2px orange solid;
+    border-bottom: 2px orange dotted;
     float: left;
     margin: 0 10px;
     text-align: center;
     width: 20%;
+}
+.input-display .kg.selected {
+    border-bottom: 2px orange solid;
 }
 .input-display .repeat {
     border-bottom: 2px orange dotted;
@@ -129,6 +132,9 @@ body {
     margin-right: 20px;
     text-align: center;
     width: 20%;
+}
+.input-display .repeat.selected {
+    border-bottom: 2px orange solid;
 }
 .input-display .add-or-update {
     background-color: orange;
@@ -163,48 +169,6 @@ body {
     <div class="logo">2018.05.26 10:23</div>
 </div>
 
-<!--
-<div class="workout">
-    <div class="name">Lat Pull Down &nbsp;&nbsp;&nbsp;[edit]</div>
-    <div class="set-area">
-        <div class="set">
-            <div class="remove">x</div>
-            <div class="weight">37kg</div><div class="repeat">20</div>
-        </div>
-        <div class="set">
-            <div class="remove">x</div>
-            <div class="weight">43kg</div><div class="repeat">20</div>
-        </div>
-        <div class="set">
-            <div class="remove">x</div>
-            <div class="weight">143kg</div><div class="repeat">20</div>
-        </div>
-        <div class="set">
-            <div class="remove">x</div>
-            <div class="weight">43kg(PR)</div><div class="repeat">20</div>
-        </div>
-        <div class="set">
-            <div class="remove">x</div>
-            <div class="weight">43kg</div><div class="repeat">20</div>
-        </div>
-    </div>
-</div>
-
-<div class="input-display">
-    <div class="kg">0 kg</div>
-    <div class="repeat">0 times</div>
-    <div class="done">Done</div>
-    <div class="add-or-update">Add</div>
-</div>
-
-<div class="button-area">
-    <div class="digit-area">
-        <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div>
-        <div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
-        <div>x</div>
-    </div>
-</div>
--->
 <style>
 .new-exercise {
     box-sizing: border-box;
@@ -250,11 +214,11 @@ body {
 
 var gDummyData = [
     {
-        workoutName: "Dumbell Bent Over Raise",
+        workoutName: "Dumbbell Bent Over Raise",
         setData: [ [37, 20], [43, 20], [43, 20], [43, 20], [43, 20] ]
     },
     {
-        workoutName: "Dumbell Lateral Raise",
+        workoutName: "Dumbbell Lateral Raise",
         setData: [ [37, 20], [43, 20], [43, 20], [43, 20], [43, 20] ]
     }
 ];
@@ -282,7 +246,7 @@ function renderChart(pElem, data, unit) {
             // x = weight * barMax / maxWeight
             barHeight = parseInt(w * barMax / maxWeight);
         }
-        var set = $("<div>").addClass("set");
+        var set = $("<div>").addClass("set").attr("num", (i + 1));
 
         var kg = $("<div>").addClass("kg").text(w + "kg");
         kg.css("margin-top", (barMax - barHeight) + "px");
@@ -318,14 +282,21 @@ function renderChart(pElem, data, unit) {
 function renderWorkoutWithChart(data) {
     var wo = $("<div>").addClass("workout");
 
+    wo.data("data", data.setData);
     wo.append($("<div>").addClass("name").text(data.workoutName));
 
     var chart = $("<div>").addClass("set-chart");
     renderChart(chart, data.setData, "kg");
     wo.append(chart);
 
-    var pElem = $(".workout").length > 0 ? $(".workout") : $(".nav");
+    var pElem = $(".nav");
+    var items = $(".workout");
+    if (items.length > 0) {
+        pElem = items.eq(items.length - 1);
+    }
     pElem.after(wo);
+
+    return wo;
 }
 
 function refreshWorkouts(data) {
@@ -338,11 +309,101 @@ function isKgOn() {
     return true;
 }
 
-function initDigitButtons() {
-    $(".button-area .digit-area > div").bind("click", function() {
+function beautifyName(s) {
+
+    if (!s || s.length < 1) {
+        return s;
+    }
+
+    s = s.trim();
+    var result = "";
+
+    result += s[0].toUpperCase();
+    var prev = s[0];
+
+    for (var i = 1; i < s.length; ++i) {
+        if (prev == ' ') {
+            result += s[i].toUpperCase();
+        }
+        else {
+            result += s[i];
+        }
+        prev = s[i];
+    }
+
+    return result;
+}
+
+function openNewExercise() {
+
+    var inputName = $(".new-exercise > .input-name");
+    var exerciseName = inputName.val();
+    exerciseName = beautifyName(exerciseName);
+
+    if (!exerciseName || exerciseName.length < 1) {
+        return;
+    }
+
+    // Add empty exercise
+    var data = { workoutName: exerciseName, setData: [] };
+    var exercise = renderWorkoutWithChart(data);
+    enableEditMode(exercise);
+
+    inputName.val("");
+    $(".new-exercise").hide();
+}
+
+function enableEditMode(pElem) {
+
+    if (pElem.hasClass("editmode")) {
+        return;
+    }
+
+    pElem.addClass("editmode");
+
+    var kgRepeat = $("<div>").addClass("input-display");
+    kgRepeat.append($("<div>")
+        .addClass("kg selected")
+        .text("0 kg")
+        .bind("click", function() {
+            $(this).parent().find("div").removeClass("selected");
+            $(this).addClass("selected");
+        })
+    );
+    kgRepeat.append($("<div>")
+        .addClass("repeat")
+        .text("10 times")
+        .bind("click", function() {
+            $(this).parent().find("div").removeClass("selected");
+            $(this).addClass("selected");
+        })
+    );
+    kgRepeat.append($("<div>")
+        .addClass("done")
+        .text("Done")
+        .bind("click", function() {
+            $(this).parent().prev().removeClass("editmode");
+            $(this).parent().next().remove();
+            $(".new-exercise").show();
+            $(this).parent().remove();
+        })
+    );
+    kgRepeat.append(getAddButton());
+    pElem.after(kgRepeat);
+
+    var buttons = $("<div>").addClass("button-area");
+    var digits = $("<div>").addClass("digit-area");
+    for (var i = 0; i < 10; ++i) {
+        digits.append($("<div>").text(i));
+    }
+    digits.append($("<div>").text("x"));
+    digits.find("div").bind("click", function() {
         var value = $(this).text();
-        if (isKgOn()) {
-            var kgElem = $(".input-display .kg");
+        var display = $(this).parent().parent().prev();
+        var kgElem = display.find(".kg");
+        var repeatElem = display.find(".repeat");
+
+        if (kgElem.hasClass("selected")) {
             var curr = parseInt(kgElem.text());
             if (value == "x") {
                 kgElem.text("0 kg");
@@ -352,12 +413,57 @@ function initDigitButtons() {
                 kgElem.text(newValue);
             }
         }
+
+        if (repeatElem.hasClass("selected")) {
+            var curr = parseInt(repeatElem.text());
+            if (value == "x") {
+                repeatElem.text("0 times");
+            }
+            else {
+                var newValue = curr == 0 ? value + " times": curr + value + " times";
+                repeatElem.text(newValue);
+            }
+        }
+    });
+    buttons.append(digits);
+    kgRepeat.after(buttons);
+}
+
+function getAddButton() {
+
+    var btn = $("<div>").addClass("add-or-update").text("Add")
+
+    btn.bind("click", function() {
+
+        var kg = parseInt($(this).parent().find(".kg").text());
+        var repeat = parseInt($(this).parent().find(".repeat").text());
+
+        if (repeat == 0) {
+            return;
+        }
+
+        var wo = $(this).parent().prev();
+        var data = wo.data("data");
+        var chart = wo.find(".set-chart");
+        
+        data.push([kg, repeat]);
+        wo.data("data", data);
+        chart.html("");
+        renderChart(chart, data, "kg");
+    });
+
+    return btn;
+}
+
+function activateStart() {
+    $(".new-exercise > .btn-start").bind("click", function() {
+        openNewExercise();
     });
 }
 
 $(document).ready(function() {
     refreshWorkouts(gDummyData);
-    //initDigitButtons();
+    activateStart();
 });
 </script>
 
