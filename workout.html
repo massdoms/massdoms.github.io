@@ -15,60 +15,34 @@ body {
     font-size: 24px;
 }
 .nav {
-    background-color: orange;
-    box-sizing: border-box;
-    color: black;
-    height: 40px;
-    padding: 4px 8px 8px 8px;
-    width: 100%;
-}
-.nav .logo {
-    float: left;
+    background-color: orange; box-sizing: border-box; color: black; height: 40px; padding: 4px 8px 8px 8px; width: 100%;
 }
 .set-chart {
-    box-sizing: border-box;
-    overflow: hidden;
-    padding: 8px;
-    width: 100%;
+    box-sizing: border-box; overflow: hidden; padding: 8px; width: 100%;
 }
 .set-chart .set {
-    float: left;
-    font-size: 28px;
-    text-align: center;
-    width: 60px;
+    float: left; font-size: 28px; text-align: center; width: 60px;
 }
 .set-chart .kg {
-    height: 40px;
-    font-size: 20px;
+    height: 40px; font-size: 20px;
 }
 .set-chart .kg-box {
-    border-bottom: 2px white solid;
-    overflow: hidden;
-    width: 60px;
+    border-bottom: 2px white solid; overflow: hidden; width: 60px;
 }
 .set-chart .kg-box .kg-bar {
-    background-color: orange;
-    margin-left: 15px;
-    width: 30px;
+    background-color: orange; margin-left: 15px; width: 30px;
 }
 .set-chart .repeat-box {
-    overflow: hidden;
-    width: 60px;
+    overflow: hidden; width: 60px;
 }
 .set-chart .repeat-box .repeat-bar {
-    background-color: orange;
-    margin-left: 15px;
-    opacity: 0.5;
-    width: 30px;
+    background-color: orange; margin-left: 15px; opacity: 0.5; width: 30px;
 }
 .set-chart .repeat {
-    height: 40px;
-    font-size: 20px;
-    margin-top: 8px;
+    height: 40px; font-size: 20px; margin-top: 8px;
 }
 .workout {
-    box-sizing: border-box;
-    padding: 0 8px;
+    box-sizing: border-box; padding: 0 8px;
 }
 .workout .name {
     color: orange;
@@ -84,130 +58,79 @@ body {
     text-align: center;
 }
 .workout .set > div.remove {
-    margin-bottom: 0px;
-    color: orange;
+    margin-bottom: 0px; color: orange;
 }
 .button-area {
-    box-sizing: border-box;
-    padding: 8px;
+    box-sizing: border-box; padding: 8px;
 }
 .digit-area {
-    float: left;
-    overflow: hidden;
-    width: 60%;
+    float: left; overflow: hidden; width: 60%;
 }
 .digit-area > div {
-    border: 1px orange solid;
-    border-radius: 24px;
-    color: orange;
-    float: left;
-    height: 40px;
-    margin: 0px 4px 4px 0px;
-    text-align: center;
-    width: calc(20% - 6px);
+    border: 1px orange solid; border-radius: 24px; color: orange; float: left; height: 40px; margin: 0px 4px 4px 0px; text-align: center; width: calc(20% - 6px);
 }
 .digit-area > div:hover {
-    background-color: orange;
-    color: black;
+    background-color: orange; color: black;
 }
 .input-display {
-    box-sizing: border-box;
-    overflow: hidden;
-    padding: 8px;
-    width: 100%;
+    box-sizing: border-box; overflow: hidden; padding: 8px; width: 100%;
 }
 .input-display .kg {
-    border-bottom: 2px orange dotted;
-    float: left;
-    font-size: 20px;
-    margin: 0 10px;
-    text-align: center;
-    width: 24%;
+    border-bottom: 2px orange dotted; float: left; font-size: 20px; margin: 0 10px; text-align: center; width: 24%;
 }
 .input-display .kg.selected {
     border-bottom: 2px orange solid;
 }
 .input-display .repeat {
-    border-bottom: 2px orange dotted;
-    float: left;
-    font-size: 20px;
-    margin-right: 20px;
-    text-align: center;
-    width: 24%;
+    border-bottom: 2px orange dotted; float: left; font-size: 20px; margin-right: 20px; text-align: center; width: 24%;
 }
 .input-display .repeat.selected {
     border-bottom: 2px orange solid;
 }
 .input-display .add-or-update {
-    background-color: orange;
-    border-radius: 10px;
-    box-sizing: border-box;
-    color: black;
-    float: right;
-    font-size: 20px;
-    height: 40px;
-    margin-right: 8px;
-    padding: 4px;
-    text-align: center;
-    width: calc(18% + 2px);
+    background-color: orange; border-radius: 10px; box-sizing: border-box; color: black; float: right; font-size: 20px; height: 40px; margin-right: 8px; padding: 4px; text-align: center; width: calc(18% + 2px);
 }
 .input-display .done {
-    background-color: orange;
-    border-radius: 10px;
-    box-sizing: border-box;
-    color: black;
-    float: right;
-    font-size: 20px;
-    height: 40px;
-    padding: 4px;
-    text-align: center;
-    width: calc(18% + 2px);
+    background-color: orange; border-radius: 10px; box-sizing: border-box; color: black; float: right; font-size: 20px; height: 40px; padding: 4px; text-align: center; width: calc(18% + 2px);
+}
+.export-area {
+    background-color: rgba(0, 0, 0, 0.7); display: none; height: 100%; left: 0px; position: fixed; top: 0px; width: 100%; z-index: 100;
+}
+.new-exercise {
+    box-sizing: border-box; overflow: hidden; padding: 8px; width: 100%;
+}
+.new-exercise .input-name {
+    background-color: black; border: none; border-bottom: 2px orange solid; border-radius: 0; color: white; float: left; font-size: 24px; height: 40px; outline: none; width: 70%;
+}
+.btn-start {
+    background-color: orange; box-sizing: border-box; border-radius: 10px; color: black; float: right; height: 36px; font-size: 20px; margin: 10px auto; padding: 2px 0px 0px 0px; text-align: center; width: 20%;
+}
+.btn-export {
+    background-color: orange; box-sizing: border-box; border-radius: 10px; color: black; cursor: pointer; height: 36px; font-size: 20px; margin: 100px auto 20px auto; padding: 2px 0px 0px 0px; text-align: center; width: 50%;
+}
+.btn-close {
+    background-color: orange; box-sizing: border-box; border-radius: 10px; color: black; cursor: pointer; height: 36px; font-size: 20px; margin: 20px auto 20px auto; padding: 2px 0px 0px 0px; text-align: center; width: 50%;
+}
+.export-area .note {
+    background-color: white; border-radius: 6px; box-sizing: border-box; color: black; font-family: Helvetica; font-size: 14px; height: 83%; margin: 0 10%; overflow-x: hidden; overflow-y: scroll; padding: 4px; width: 80%;
 }
 </style>
 
 <body>
 
 <div class="nav">
-    <div class="logo">2018.05.26 10:23</div>
+    <div class="title">2018.05.26 10:23</div>
 </div>
-
-<style>
-.new-exercise {
-    box-sizing: border-box;
-    overflow: hidden;
-    padding: 8px;
-    width: 100%;
-}
-.new-exercise .input-name {
-    background-color: black;
-    border: none;
-    border-bottom: 2px orange solid;
-    border-radius: 0;
-    color: white;
-    float: left;
-    font-size: 24px;
-    height: 40px;
-    outline: none;
-    width: 70%;
-}
-.btn-start {
-    background-color: orange;
-    box-sizing: border-box;
-    border-radius: 10px;
-    color: black;
-    float: right;
-    height: 36px;
-    font-size: 20px;
-    margin: 10px auto;
-    padding: 2px 0px 0px 0px;
-    text-align: center;
-    width: 20%;
-}
-</style>
 
 <div class="new-exercise">
     <input class="input-name" type="text" placeholder="Exercise Name"></input>
     <div class="btn-start">Start</div>
+    <div class="btn-export">Export</div>
+</div>
+
+<div class="export-area">
+    <div class="btn-close">Close</div>
+    <textarea class="note"></textarea>
 </div>
 
 </body>
@@ -215,6 +138,7 @@ body {
 <script src="js/jquery.min.js"></script>
 <script>
 
+// Workout format will look like below.
 var gDummyData = [
     {
         workoutName: "Dumbbell Bent Over Raise",
@@ -376,11 +300,11 @@ function enableEditMode(pElem) {
     );
     kgRepeat.append($("<div>")
         .addClass("repeat")
-        .text("10 times")
+        .text("10 reps")
         .bind("click", function() {
             $(this).parent().find("div").removeClass("selected");
             $(this).addClass("selected");
-            $(this).text("0 times");
+            $(this).text("0 reps");
         })
     );
     kgRepeat.append($("<div>")
@@ -422,10 +346,10 @@ function enableEditMode(pElem) {
         if (repeatElem.hasClass("selected")) {
             var curr = parseInt(repeatElem.text());
             if (value == "x") {
-                repeatElem.text("0 times");
+                repeatElem.text("0 reps");
             }
             else {
-                var newValue = curr == 0 ? value + " times": curr + value + " times";
+                var newValue = curr == 0 ? value + " reps": curr + value + " reps";
                 repeatElem.text(newValue);
             }
         }
@@ -466,8 +390,58 @@ function activateStart() {
     });
 }
 
+function setTitle(title) {
+
+    if (!title || title.length < 1) {
+        var now = new Date();
+        var title = now.getFullYear();
+        title += '.' + zPadding(now.getMonth() + 1)
+            + '.' + zPadding(now.getDate())
+            + ' ' + zPadding(now.getHours())
+            + ':' + zPadding(now.getMinutes());
+    }
+
+    $(".nav .title").text(title);
+}
+
+function zPadding(s) {
+    s = s + '';
+    return s.length < 2 ? '0' + s : s;
+}
+
+function getExportData() {
+    var note = "MassDoms note: " + $(".nav .title").text() + "\n\n";
+
+    $.each($(".workout"), function(i, item) {
+        var elem = $(item);
+        var workoutName = elem.find(".name").text();
+        var data = elem.data("data");
+        $.each(data, function(j, wr) {
+            var weight = wr[0];
+            var reps = wr[1];
+            note += workoutName + " " + weight + "kg " + reps + "reps\n";
+        });
+    });
+
+    return note;
+}
+
+function initExport() {
+    $(".export-area .btn-close").bind("click", function() {
+        $(this).parent().hide();
+        $(this).parent().find(".note").val("");
+    });
+
+    $(".btn-export").bind("click", function() {
+        $(".export-area .note").val(getExportData());
+        $(".export-area").show();
+    });
+}
+
 $(document).ready(function() {
-    refreshWorkouts(gDummyData);
+    initExport();
+    setTitle('');
+    refreshWorkouts([]);
     activateStart();
 });
 </script>
