@@ -415,12 +415,15 @@ function getExportData() {
     $.each($(".workout"), function(i, item) {
         var elem = $(item);
         var workoutName = elem.find(".name").text();
+        note += "** " + workoutName + " **\n";
         var data = elem.data("data");
         $.each(data, function(j, wr) {
-            var weight = wr[0];
+            var weight = wr[0] == "0" ? "" : wr[0] + " kgs x ";
             var reps = wr[1];
-            note += workoutName + " " + weight + "kg " + reps + "reps\n";
+            note += "- " + weight + reps + " reps\n";
         });
+
+        note += "\n";
     });
 
     return note;
