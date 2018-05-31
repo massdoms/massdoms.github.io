@@ -18,7 +18,7 @@ body {
     background-color: orange; box-sizing: border-box; color: black; height: 40px; padding: 4px 8px 8px 8px; width: 100%;
 }
 .set-chart {
-    box-sizing: border-box; overflow: hidden; padding: 8px; width: 100%;
+    box-sizing: border-box; min-height: 160px; overflow: hidden; padding: 8px; width: 100%;
 }
 .set-chart .set {
     float: left; font-size: 28px; text-align: center; width: 60px;
@@ -30,13 +30,13 @@ body {
     border-bottom: 2px white solid; overflow: hidden; width: 60px;
 }
 .set-chart .kg-box .kg-bar {
-    background-color: orange; margin-left: 15px; width: 30px;
+    background-color: orange; margin-left: 15px; opacity: 0.5; width: 30px;
 }
 .set-chart .repeat-box {
     overflow: hidden; width: 60px;
 }
 .set-chart .repeat-box .repeat-bar {
-    background-color: orange; margin-left: 15px; opacity: 0.5; width: 30px;
+    background-color: orange; margin-left: 15px; width: 30px;
 }
 .set-chart .repeat {
     height: 40px; font-size: 20px; margin-top: 8px;
@@ -169,38 +169,40 @@ function renderChart(pElem, data, unit) {
         var w = data[i][0];
         var r = data[i][1];
         var barHeight = 0;
-        if (maxWeight > 0) {
-            // x = weight * barMax / maxWeight
-            barHeight = parseInt(w * barMax / maxWeight);
-        }
-        var set = $("<div>").addClass("set").attr("num", (i + 1));
 
-        var kg = $("<div>").addClass("kg").text(w + "kg");
-        kg.css("margin-top", (barMax - barHeight) + "px");
-        set.append(kg);
-
-        var kgBox = $("<div>").addClass("kg-box");
-        var kgBar = $("<div>").addClass("kg-bar").css(
-            "height", barHeight + "px"
-        );
-        kgBox.append(kgBar);
-        set.append(kgBox);
-
-        barHeight = 0;
         if (maxRepeat > 0) {
             barHeight = parseInt(r * barMax / maxRepeat);
         }
 
+        var set = $("<div>").addClass("set").attr("num", (i + 1));
+
+        // Reps
         var repeatBox = $("<div>").addClass("repeat-box");
+        var repeat = $("<div>").addClass("repeat").text(r);
+        repeat.css("margin-top", (barMax - barHeight) + "px");
+        set.append(repeat);
         var repeatBar = $("<div>").addClass("repeat-bar").css(
             "height", barHeight + "px"
         );
         repeatBox.append(repeatBar);
         set.append(repeatBox);
 
-        var repeat = $("<div>").addClass("repeat").text(r);
-        repeat.css("margin-bottom", (barMax - barHeight) + "px");
-        set.append(repeat);
+        barHeight = 0;
+        if (maxWeight > 0) {
+            // x = weight * barMax / maxWeight
+            barHeight = parseInt(w * barMax / maxWeight);
+        }
+
+        // Weight
+        var kgBox = $("<div>").addClass("kg-box");
+        var kgBar = $("<div>").addClass("kg-bar").css(
+            "height", barHeight + "px"
+        );
+        kgBox.append(kgBar);
+        set.append(kgBox);
+        var kg = $("<div>").addClass("kg").text(w + "kg");
+        kg.css("margin-bottom", (barMax - barHeight) + "px");
+        set.append(kg);
 
         pElem.append(set);
     }
